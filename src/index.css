@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,35 +6,35 @@
 
 @layer base {
   :root {
-    --background: 45 25% 97%;
-    --foreground: 25 40% 15%;
+    --background: 0 0% 99%;
+    --foreground: 220 20% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 40% 15%;
+    --card-foreground: 220 20% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 40% 15%;
+    --popover-foreground: 220 20% 12%;
 
-    --primary: 25 50% 35%;
-    --primary-foreground: 45 25% 97%;
+    --primary: 222 65% 28%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 30% 85%;
-    --secondary-foreground: 25 40% 15%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 12%;
 
-    --muted: 45 20% 90%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 220 12% 95%;
+    --muted-foreground: 220 10% 50%;
 
-    --accent: 95 35% 45%;
+    --accent: 222 65% 28%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 45 20% 88%;
-    --input: 45 20% 88%;
-    --ring: 25 50% 35%;
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 222 65% 28%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -99,7 +99,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Golos Text", sans-serif;
   }
 
   h1,
@@ -108,6 +108,6 @@
   h4,
   h5,
   h6 {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Golos Text", sans-serif;
   }
 }

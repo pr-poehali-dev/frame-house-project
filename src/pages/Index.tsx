@@ -1,500 +1,434 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 
-const Index = () => {
-  const [calculatorData, setCalculatorData] = useState({
-    area: '',
-    type: '',
-  });
-  const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);
+const stats = [
+  { value: '440 000', label: 'пациентов обслужено за год' },
+  { value: '2 млн+', label: 'пациентов в базе' },
+  { value: '95%', label: 'удовлетворённость клиентов' },
+  { value: '20–25%', label: 'EBITDA от выручки' },
+  { value: '4,5', label: 'визита в год на пациента' },
+  { value: '84%', label: 'рассрочек — оплата картой' },
+];
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
-  };
+const touches = [
+  {
+    num: '01',
+    title: 'Обращение / первый контакт',
+    goal: 'Быстро довести до записи',
+    actions: [
+      'Ответить/перезвонить быстро, без "мы уточним"',
+      'Дать 2–3 варианта времени',
+      'Зафиксировать запись и источник',
+    ],
+    kpi: [{ label: 'Конверсия "обращение → запись"', value: '≥ 65%' }],
+    border: 'border-blue-200',
+    bg: 'bg-blue-50/60',
+    numColor: 'text-blue-700',
+    iconColor: 'text-blue-600',
+  },
+  {
+    num: '02',
+    title: 'После приёма (ресепшен)',
+    goal: 'Не отпустить без плана и следующей записи',
+    actions: [
+      'Врач выдаёт план лечения/КП (этапы + цена) и это фиксируется',
+      'Администратор проговаривает варианты оплаты и ценность',
+      'Пациента записывают на повторный визит (конкретная дата/время)',
+      'Если "подумаю" — статус "думает" + задача на дожим',
+    ],
+    kpi: [
+      { label: 'План лечения/КП выдан', value: '100%' },
+      { label: 'Конверсия "план/КП → продажа"', value: '≥ 70%' },
+      { label: 'Конверсия "продажа → повторные визиты"', value: '≥ 80%' },
+    ],
+    border: 'border-indigo-200',
+    bg: 'bg-indigo-50/60',
+    numColor: 'text-indigo-700',
+    iconColor: 'text-indigo-600',
+  },
+  {
+    num: '03',
+    title: 'Follow-up (в течение 24 часов)',
+    goal: 'Никто не теряется, сомневающихся возвращаем',
+    actions: [
+      'Звонок/сообщение: "Как самочувствие после приёма?"',
+      'Если нет записи — предложить 2–3 слота',
+      'Отправить запрос оценки (NPS) и рекомендаций/отзыва',
+    ],
+    kpi: [
+      { label: 'Follow-up (≤ 24 часа + опрос самочувствия)', value: '100%' },
+      { label: 'NPS / удовлетворённость', value: '≥ 95%' },
+      { label: 'Конверсия "продажа → рекомендации"', value: '≥ 80%' },
+    ],
+    border: 'border-violet-200',
+    bg: 'bg-violet-50/60',
+    numColor: 'text-violet-700',
+    iconColor: 'text-violet-600',
+  },
+];
 
-  const calculatePrice = () => {
-    const area = parseInt(calculatorData.area);
-    if (!area || !calculatorData.type) return;
+const kpiGroups = [
+  {
+    icon: 'UserPlus',
+    title: 'Первичный поток',
+    subtitle: 'Обращение → запись',
+    items: [
+      { label: 'Конверсия обращения в запись пациента', value: '≥ 65%' },
+    ],
+  },
+  {
+    icon: 'TrendingUp',
+    title: 'Продажи и воронка',
+    items: [
+      { label: 'Врач → пациенту: выдан план лечения/КП', value: '100%' },
+      { label: 'Конверсия "план/КП → продажа"', value: '≥ 70%' },
+      { label: 'Конверсия "продажа → повторные визиты"', value: '≥ 80%' },
+      { label: 'Конверсия "продажа → рекомендации"', value: '≥ 80%' },
+    ],
+  },
+  {
+    icon: 'Stethoscope',
+    title: 'Направления к смежным',
+    subtitle: 'Специалисты',
+    items: [
+      { label: 'Рекомендации к ортодонту', value: '≥ 20%' },
+      { label: 'Рекомендации к хирургу-имплантологу', value: '≥ 20%' },
+    ],
+  },
+  {
+    icon: 'Star',
+    title: 'Сервис и контроль качества',
+    items: [
+      { label: 'Обзвон / уведомление пациента после приёма (≤ 24 ч + опрос)', value: '100%' },
+      { label: 'NPS / удовлетворённость', value: '≥ 95%' },
+    ],
+  },
+  {
+    icon: 'RefreshCw',
+    title: 'Возврат пациентов',
+    subtitle: 'Окно 6 месяцев',
+    items: [
+      { label: 'Вторичные пациенты — конверсия возврата', value: '≥ 30%' },
+      { label: 'Лояльные пациенты — конверсия возврата', value: '≥ 50%' },
+    ],
+  },
+  {
+    icon: 'BarChart2',
+    title: 'Операционный микс',
+    subtitle: 'Контроль структуры услуг',
+    items: [
+      { label: 'Проф. гигиена (очистка)', value: '≥ 27%' },
+    ],
+  },
+];
 
-    let pricePerSqm = 0;
-    if (calculatorData.type === '60-100') pricePerSqm = 35000;
-    else if (calculatorData.type === '100-140') pricePerSqm = 40000;
-    else if (calculatorData.type === '140+') pricePerSqm = 45000;
+const roles = [
+  {
+    icon: 'Stethoscope',
+    role: 'Врач',
+    duties: [
+      'План/КП — 100%',
+      'Направления к смежным: ортодонт ≥20%, хирург ≥20%',
+      'Корректная фиксация в карте пациента',
+    ],
+  },
+  {
+    icon: 'UserCheck',
+    role: 'Администратор / куратор',
+    duties: [
+      'Конверсия обращения в запись ≥ 65%',
+      'Доведение КП до продажи ≥ 70%',
+      'Запись на повтор ≥ 80%',
+      'Follow-up 100% + запрос NPS и рекомендаций',
+    ],
+  },
+  {
+    icon: 'ClipboardList',
+    role: 'Управляющий / старший администратор',
+    duties: [
+      'Ежедневный контроль дисциплины',
+      'Еженедельный разбор KPI',
+      'Устранение "дырок" в процессе',
+      'Обучение и система мотивации/санкций',
+    ],
+  },
+];
 
-    setEstimatedPrice(area * pricePerSqm);
-  };
+const funnel = [
+  'Обращение',
+  'Запись',
+  'Визит',
+  'План / КП',
+  'Продажа',
+  'Повторный визит',
+  'Follow-up',
+  'NPS',
+  'Рекомендации',
+];
 
+export default function Index() {
   return (
-    <div className="min-h-screen bg-background">
-      <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
-        <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary font-heading">СтройДом</h1>
-          <div className="hidden md:flex gap-6">
-            <button onClick={() => scrollToSection('about')} className="text-foreground hover:text-primary transition-colors">
-              О компании
-            </button>
-            <button onClick={() => scrollToSection('services')} className="text-foreground hover:text-primary transition-colors">
-              Услуги
-            </button>
-            <button onClick={() => scrollToSection('process')} className="text-foreground hover:text-primary transition-colors">
-              Процесс
-            </button>
-            <button onClick={() => scrollToSection('portfolio')} className="text-foreground hover:text-primary transition-colors">
-              Портфолио
-            </button>
-            <button onClick={() => scrollToSection('calculator')} className="text-foreground hover:text-primary transition-colors">
-              Калькулятор
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="text-foreground hover:text-primary transition-colors">
-              Контакты
-            </button>
-          </div>
-        </nav>
-      </header>
+    <div className="min-h-screen bg-background text-foreground">
 
-      <section className="pt-16 min-h-screen flex items-center relative overflow-hidden">
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/4c971e4a-8b59-4322-b0b8-a9f3221910b0.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60" />
+      {/* Hero */}
+      <section className="border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-16 md:py-24">
+          <div className="flex flex-wrap items-center gap-3 mb-8">
+            <span className="text-xs font-mono font-medium tracking-widest uppercase text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
+              Кейс
+            </span>
+            <span className="text-xs font-mono text-muted-foreground">Harvard Business School</span>
+            <a
+              href="https://disk.yandex.ru/i/2VkrVRZz7CpJRg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-primary hover:underline"
+            >
+              <Icon name="ExternalLink" size={12} />
+              Смотреть кейс
+            </a>
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.0] mb-6">
+            Sorridents
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+            Операционная система стоматологической сети: как превратить каждый визит пациента в управляемую воронку с измеримым результатом.
+          </p>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl animate-fade-in">
-            <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6 font-heading">
-              Каркасные дома по скандинавской технологии
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Строим надёжные дома для комфортной жизни с 2017 года. Более 146 реализованных проектов по всей России.
+      </section>
+
+      {/* Stats */}
+      <section className="border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-12">
+          <p className="text-xs font-mono font-medium tracking-widest uppercase text-muted-foreground mb-6">
+            Кейс в цифрах
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 border border-border rounded-2xl overflow-hidden divide-x divide-y divide-border">
+            {stats.map((s, i) => (
+              <div
+                key={i}
+                className="p-6 bg-white hover:bg-secondary/50 transition-colors"
+              >
+                <div className="text-3xl md:text-4xl font-black text-primary mb-1 leading-none tabular-nums">
+                  {s.value}
+                </div>
+                <div className="text-sm text-muted-foreground leading-snug">{s.label}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Ортодонтия ~32,9% операционного микса, проф. гигиена ~27% · Почти половина процедур — в рассрочку
+          </p>
+        </div>
+      </section>
+
+      {/* Three Touches */}
+      <section className="border-b border-border">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <div className="mb-10">
+            <p className="text-xs font-mono font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              Методология
             </p>
-            <div className="flex gap-4">
-              <Button size="lg" onClick={() => scrollToSection('calculator')} className="bg-accent hover:bg-accent/90">
-                Рассчитать стоимость
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollToSection('portfolio')}>
-                Наши проекты
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">О компании</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <p className="text-lg text-muted-foreground mb-6">
-                Мы занимаемся строительством каркасных домов с 2017 года. За это время реализовали более 146 проектов — от частных
-                домов для ПМЖ до глемпингов и парк-отелей.
-              </p>
-              <p className="text-lg text-muted-foreground mb-6">
-                Работаем только по договору, соблюдаем строительные нормы и несем ответственность за результат. Наши инженеры имеют
-                более 10 лет опыта в каркасном домостроении.
-              </p>
-              <div className="grid grid-cols-3 gap-4 mt-8">
-                <Card className="text-center p-4">
-                  <div className="text-3xl font-bold text-accent mb-2">146+</div>
-                  <div className="text-sm text-muted-foreground">Проектов</div>
-                </Card>
-                <Card className="text-center p-4">
-                  <div className="text-3xl font-bold text-accent mb-2">10+</div>
-                  <div className="text-sm text-muted-foreground">Лет опыта</div>
-                </Card>
-                <Card className="text-center p-4">
-                  <div className="text-3xl font-bold text-accent mb-2">3</div>
-                  <div className="text-sm text-muted-foreground">Года гарантии</div>
-                </Card>
-              </div>
-            </div>
-            <div className="relative h-96 rounded-lg overflow-hidden animate-scale-in">
-              <img
-                src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/8b5e5899-a37b-4004-8e54-3f992cd439dd.jpg"
-                alt="Интерьер дома"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">Наши услуги</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow animate-fade-in">
-              <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="Home" className="text-accent" size={24} />
-                </div>
-                <CardTitle>Дома 60–100 м²</CardTitle>
-                <CardDescription>Компактные решения для дачи или постоянного проживания</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Оптимальный вариант для дачи, аренды или компактного дома. Самые популярные площади — 65 и 85 м².
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow animate-fade-in">
-              <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="Building2" className="text-accent" size={24} />
-                </div>
-                <CardTitle>Дома 100–140 м²</CardTitle>
-                <CardDescription>Комфортные дома для семьи</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Просторные планировки с возможностью панорамного остекления. Идеально для семьи с детьми.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow animate-fade-in">
-              <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon name="Castle" className="text-accent" size={24} />
-                </div>
-                <CardTitle>Дома 140+ м²</CardTitle>
-                <CardDescription>Индивидуальные архитектурные решения</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Просторные дома для постоянного проживания с индивидуальными архитектурными решениями.
-                </p>
-              </CardContent>
-            </Card>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
+              Правило трёх касаний
+            </h2>
+            <p className="text-muted-foreground max-w-xl text-base">
+              Пациент редко принимает решение с первого раза. Клиника обязана сделать 3 касания — каждое завершается следующим шагом в CRM.
+            </p>
           </div>
 
-          <div className="mt-12 p-8 bg-accent/5 rounded-lg">
-            <h3 className="text-2xl font-bold mb-6 font-heading">Преимущества скандинавской технологии</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="flex gap-4">
-                <Icon name="Zap" className="text-accent flex-shrink-0" size={24} />
-                <div>
-                  <h4 className="font-semibold mb-2">Быстрое строительство</h4>
-                  <p className="text-muted-foreground">2–3 месяца в базовой комплектации</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <Icon name="ThermometerSnowflake" className="text-accent flex-shrink-0" size={24} />
-                <div>
-                  <h4 className="font-semibold mb-2">Энергоэффективность</h4>
-                  <p className="text-muted-foreground">Экономия на отоплении до 40%</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <Icon name="Calendar" className="text-accent flex-shrink-0" size={24} />
-                <div>
-                  <h4 className="font-semibold mb-2">Круглогодичное строительство</h4>
-                  <p className="text-muted-foreground">Работы в любое время года</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <Icon name="Shield" className="text-accent flex-shrink-0" size={24} />
-                <div>
-                  <h4 className="font-semibold mb-2">Надёжность</h4>
-                  <p className="text-muted-foreground">Технология для сурового климата</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="process" className="py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">Процесс строительства</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 rounded-lg overflow-hidden">
-              <img
-                src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/88fca807-15e8-46c1-a5e9-1b319abb77c0.jpg"
-                alt="Процесс строительства"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center flex-shrink-0">
-                        1
-                      </div>
-                      <span>Проектирование</span>
+          <div className="space-y-4">
+            {touches.map((t) => (
+              <div key={t.num} className={`rounded-2xl border ${t.border} ${t.bg} p-6 md:p-8`}>
+                <div className="flex flex-col md:flex-row md:gap-8">
+                  {/* Left */}
+                  <div className="md:w-64 flex-shrink-0 mb-6 md:mb-0">
+                    <div className={`text-6xl font-black font-mono ${t.numColor} opacity-20 leading-none mb-3`}>
+                      {t.num}
                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Разработка индивидуального проекта с учётом ваших пожеланий и особенностей участка.
-                  </AccordionContent>
-                </AccordionItem>
+                    <h3 className="text-base font-bold leading-snug mb-2">{t.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-semibold text-foreground">Цель:</span> {t.goal}
+                    </p>
+                  </div>
 
-                <AccordionItem value="item-2">
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center flex-shrink-0">
-                        2
-                      </div>
-                      <span>Фундамент</span>
+                  {/* Actions */}
+                  <div className="flex-1 mb-6 md:mb-0">
+                    <p className="text-xs font-mono font-medium uppercase tracking-widest text-muted-foreground mb-3">
+                      Что делаем
+                    </p>
+                    <ul className="space-y-2">
+                      {t.actions.map((a, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-sm">
+                          <Icon name="Check" size={14} className={`${t.iconColor} mt-0.5 flex-shrink-0`} />
+                          <span>{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* KPI */}
+                  <div className="md:w-60 flex-shrink-0">
+                    <p className="text-xs font-mono font-medium uppercase tracking-widest text-muted-foreground mb-3">
+                      KPI касания
+                    </p>
+                    <div className="space-y-3">
+                      {t.kpi.map((k, i) => (
+                        <div key={i} className="flex flex-col gap-0.5">
+                          <span className={`text-xl font-black font-mono ${t.numColor}`}>
+                            {k.value}
+                          </span>
+                          <span className="text-xs text-muted-foreground leading-snug">{k.label}</span>
+                        </div>
+                      ))}
                     </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Устройство свайно-винтового фундамента, подобранного под геологию участка.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-3">
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center flex-shrink-0">
-                        3
-                      </div>
-                      <span>Каркас и кровля</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Сборка каркаса из сухой строганной древесины и монтаж кровельной системы.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-4">
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center flex-shrink-0">
-                        4
-                      </div>
-                      <span>Утепление и отделка</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Установка окон, утепление, внутренняя и внешняя отделка с монтажом инженерных систем.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-5">
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center flex-shrink-0">
-                        5
-                      </div>
-                      <span>Сдача объекта</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Финальная приёмка работ, оформление документов и передача ключей.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-
-              <div className="mt-6 p-4 bg-accent/5 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  На каждом этапе проводится приёмка работ и предоставляются еженедельные фотоотчёты.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="portfolio" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">Портфолио</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 bg-accent/10 flex items-center justify-center">
-                <Icon name="MapPin" className="text-accent" size={48} />
-              </div>
-              <CardHeader>
-                <CardTitle>Глемпинг в Сочи</CardTitle>
-                <CardDescription>Комплекс из 8 каркасных домов</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Уютный глемпинг-комплекс с панорамными окнами и видом на горы.</p>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 bg-accent/10 flex items-center justify-center">
-                <Icon name="Hotel" className="text-accent" size={48} />
-              </div>
-              <CardHeader>
-                <CardTitle>Парк-отель «Пересвет»</CardTitle>
-                <CardDescription>15 коттеджей для гостей</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Современный парк-отель с индивидуальными архитектурными решениями.</p>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="h-48 bg-accent/10 flex items-center justify-center">
-                <Icon name="Building" className="text-accent" size={48} />
-              </div>
-              <CardHeader>
-                <CardTitle>Бутик-отели в Вятском</CardTitle>
-                <CardDescription>Комплекс исторических построек</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Реконструкция и строительство бутик-отелей в селе Вятское.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="calculator" className="py-20 bg-card">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">Калькулятор стоимости</h2>
-          <Card>
-            <CardHeader>
-              <CardTitle>Рассчитайте примерную стоимость вашего дома</CardTitle>
-              <CardDescription>Укажите параметры для предварительного расчёта</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="area">Площадь дома (м²)</Label>
-                <Input
-                  id="area"
-                  type="number"
-                  placeholder="Например, 85"
-                  value={calculatorData.area}
-                  onChange={(e) => setCalculatorData({ ...calculatorData, area: e.target.value })}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="type">Тип дома</Label>
-                <Select value={calculatorData.type} onValueChange={(value) => setCalculatorData({ ...calculatorData, type: value })}>
-                  <SelectTrigger id="type">
-                    <SelectValue placeholder="Выберите тип" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="60-100">60–100 м² (от 35 000 ₽/м²)</SelectItem>
-                    <SelectItem value="100-140">100–140 м² (от 40 000 ₽/м²)</SelectItem>
-                    <SelectItem value="140+">140+ м² (от 45 000 ₽/м²)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Button onClick={calculatePrice} className="w-full bg-accent hover:bg-accent/90">
-                Рассчитать стоимость
-              </Button>
-
-              {estimatedPrice && (
-                <div className="p-6 bg-accent/5 rounded-lg text-center animate-fade-in">
-                  <div className="text-sm text-muted-foreground mb-2">Примерная стоимость</div>
-                  <div className="text-3xl font-bold text-accent">{estimatedPrice.toLocaleString('ru-RU')} ₽</div>
-                  <div className="text-sm text-muted-foreground mt-2">
-                    Итоговая цена зависит от комплектации и дополнительных опций
                   </div>
                 </div>
-              )}
-
-              <div className="text-sm text-muted-foreground text-center">
-                <p>Гарантия на работы — 3 года</p>
-                <p>Возможна ипотека и счета эскроу</p>
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="contact" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 font-heading">Контакты</h2>
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle>Свяжитесь с нами</CardTitle>
-                <CardDescription>Ответим на все вопросы и подберём оптимальное решение</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Icon name="Phone" className="text-accent" size={20} />
+      {/* KPI Checklist */}
+      <section className="border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <div className="mb-10">
+            <p className="text-xs font-mono font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              Еженедельный / ежемесячный контроль
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
+              Чек-лист KPI
+            </h2>
+            <p className="text-muted-foreground max-w-xl text-base">
+              Все показатели обязательны к выполнению. Разбор каждую неделю и каждый месяц.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {kpiGroups.map((group, gi) => (
+              <div key={gi} className="rounded-2xl border border-border bg-background p-6 hover:shadow-sm transition-shadow">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Icon name={group.icon} size={17} className="text-primary" />
+                  </div>
                   <div>
-                    <div className="font-semibold">Телефон</div>
-                    <div className="text-muted-foreground">+7 (999) 123-45-67</div>
+                    <h3 className="font-bold text-sm leading-tight">{group.title}</h3>
+                    {group.subtitle && (
+                      <p className="text-xs text-muted-foreground">{group.subtitle}</p>
+                    )}
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="Mail" className="text-accent" size={20} />
-                  <div>
-                    <div className="font-semibold">Email</div>
-                    <div className="text-muted-foreground">info@stroydom.ru</div>
-                  </div>
+                <div className="space-y-0">
+                  {group.items.map((item, ii) => (
+                    <div key={ii} className="flex items-center justify-between gap-4 py-2.5 border-b border-border last:border-0">
+                      <span className="text-sm text-muted-foreground leading-snug flex-1">{item.label}</span>
+                      <span className="text-sm font-black font-mono text-primary whitespace-nowrap">
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="MapPin" className="text-accent" size={20} />
-                  <div>
-                    <div className="font-semibold">Офис</div>
-                    <div className="text-muted-foreground">г. Москва, ул. Строительная, д. 1</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="Clock" className="text-accent" size={20} />
-                  <div>
-                    <div className="font-semibold">Режим работы</div>
-                    <div className="text-muted-foreground">Пн-Пт: 9:00 - 18:00</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            ))}
+          </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Часто задаваемые вопросы</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Accordion type="single" collapsible className="w-full">
-                  <AccordionItem value="faq-1">
-                    <AccordionTrigger>Можно ли менять материалы?</AccordionTrigger>
-                    <AccordionContent>Да, при условии соответствия строительным нормам.</AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="faq-2">
-                    <AccordionTrigger>Как контролировать строительство?</AccordionTrigger>
-                    <AccordionContent>
-                      Еженедельные фотоотчёты, совместные осмотры и оперативная связь с бригадиром.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="faq-3">
-                    <AccordionTrigger>Какие гарантии вы даёте?</AccordionTrigger>
-                    <AccordionContent>
-                      Гарантия на работы — 3 года, на материалы — до 15 лет. Работаем строго по договору.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
+          <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/80 p-5">
+            <div className="flex items-start gap-3">
+              <Icon name="AlertCircle" size={17} className="text-amber-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-bold text-sm text-amber-900 mb-2">Мини-контроль «чтобы не было отмазок»</p>
+                <ul className="space-y-1.5">
+                  <li className="text-sm text-amber-800 flex items-start gap-2">
+                    <span className="mt-2 w-1 h-1 rounded-full bg-amber-500 flex-shrink-0" />
+                    У каждого пациента после визита есть следующий шаг: запись / план / рекомендация / задача администратору
+                  </li>
+                  <li className="text-sm text-amber-800 flex items-start gap-2">
+                    <span className="mt-2 w-1 h-1 rounded-full bg-amber-500 flex-shrink-0" />
+                    Нет «потерянных»: если нет записи — обязательный follow-up
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <footer className="bg-primary text-primary-foreground py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-bold mb-4 font-heading">СтройДом</h3>
-          <p className="text-primary-foreground/80 mb-4">Каркасные дома по скандинавской технологии с 2017 года</p>
-          <div className="flex justify-center gap-6 text-sm text-primary-foreground/60">
-            <span>© 2024 СтройДом</span>
-            <span>•</span>
-            <span>Все права защищены</span>
+      {/* Regulation */}
+      <section className="border-b border-border">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <div className="mb-10">
+            <p className="text-xs font-mono font-medium tracking-widest uppercase text-muted-foreground mb-3">
+              Регламент
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
+              Путь каждого пациента
+            </h2>
+            <p className="text-muted-foreground max-w-xl text-base">
+              Каждый пациент проходит понятный путь — и всё фиксируется в CRM.
+            </p>
           </div>
+
+          {/* Funnel flow */}
+          <div className="bg-white rounded-2xl border border-border p-6 mb-8 overflow-x-auto">
+            <div className="flex flex-wrap items-center gap-2 min-w-max">
+              {funnel.map((step, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 bg-background border border-border rounded-full px-4 py-2 text-sm font-medium shadow-sm whitespace-nowrap">
+                    <span className="text-xs font-mono text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{step}</span>
+                  </div>
+                  {i < funnel.length - 1 && (
+                    <Icon name="ChevronRight" size={15} className="text-muted-foreground flex-shrink-0" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Roles */}
+          <div className="grid md:grid-cols-3 gap-4">
+            {roles.map((r, i) => (
+              <div key={i} className="rounded-2xl border border-border bg-white p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
+                    <Icon name={r.icon} size={18} className="text-white" />
+                  </div>
+                  <h3 className="font-bold text-sm leading-tight">{r.role}</h3>
+                </div>
+                <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-3">Ответственность</p>
+                <ul className="space-y-2">
+                  {r.duties.map((d, di) => (
+                    <li key={di} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Icon name="Dot" size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-border">
+        <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <p className="font-black text-xl">Sorridents</p>
+            <p className="text-sm text-muted-foreground mt-0.5">Пациентопоток → продажа → повтор → рекомендации</p>
+          </div>
+          <a
+            href="https://disk.yandex.ru/i/2VkrVRZz7CpJRg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary border border-primary/30 rounded-full px-5 py-2.5 hover:bg-primary hover:text-white transition-colors"
+          >
+            <Icon name="FileText" size={14} />
+            Полный кейс Harvard
+          </a>
         </div>
       </footer>
     </div>
   );
-};
-
-export default Index;
+}
