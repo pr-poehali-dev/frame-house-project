@@ -6,6 +6,7 @@ const CONSULT_IMG = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75
 // Скриншоты интерфейса телефона
 const PHONE_SCREEN_1 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/0efad4c2-ef98-47d7-a893-c7e68bbd20be.jpeg";
 const PHONE_SCREEN_2 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/cdbf14bb-c3d7-4a8d-90f7-759ab28f3053.jpeg";
+const PHONE_SCREEN_3 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/e50a08cc-ed97-40ea-9b4e-dbb6ba83cc96.jpeg";
 
 const C = {
   bg: "#f0f5ff",
@@ -261,9 +262,10 @@ export default function Index() {
           </div>
 
           {/* Мокапы телефонов */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 mb-14 py-8" style={{ background: C.bg, borderRadius: 32 }}>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 mb-14 py-10 px-6" style={{ background: C.bg, borderRadius: 32 }}>
             <PhoneMockup src={PHONE_SCREEN_2} label="Вторичные пациенты" />
             <PhoneMockup src={PHONE_SCREEN_1} label="VIP-пациенты" />
+            <PhoneMockup src={PHONE_SCREEN_3} label="После удаления зуба" />
           </div>
 
           {/* Варианты выбора */}
