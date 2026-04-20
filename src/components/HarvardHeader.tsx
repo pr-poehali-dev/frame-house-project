@@ -32,7 +32,7 @@ export default function HarvardHeader() {
             className="flex items-center gap-1.5 text-xs font-table text-white/80 hover:text-white transition-colors"
           >
             <Icon name="ExternalLink" size={11} />
-            Открыть кейс
+            Future IT Dent
           </a>
         </div>
       </div>

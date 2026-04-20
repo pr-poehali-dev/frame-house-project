@@ -97,13 +97,7 @@ export default function ConclusionSection() {
             </a>
           </div>
 
-          <div className="flex items-center gap-3">
-            <img
-              src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/9494c93c-7ba3-4f6b-b29a-7be4a209fd02.jpeg"
-              alt="Sorridents"
-              className="h-6 object-contain opacity-60"
-            />
-          </div>
+
         </div>
       </footer>
     </div>
