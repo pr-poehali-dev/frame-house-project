@@ -97,18 +97,12 @@ export default function ConclusionSection() {
             </a>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-            <div className="flex items-center gap-3">
-              <img
-                src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/9494c93c-7ba3-4f6b-b29a-7be4a209fd02.jpeg"
-                alt="Sorridents"
-                className="h-6 object-contain opacity-60"
-              />
-            </div>
-            <span className="hidden md:block w-1 h-1 rounded-full bg-white/20" />
-            <p className="text-xs font-table text-white/30">Методология правила трёх касаний</p>
-            <span className="hidden md:block w-1 h-1 rounded-full bg-white/20" />
-            <p className="text-xs font-table text-white/30">Sorridents Brasil</p>
+          <div className="flex items-center gap-3">
+            <img
+              src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/9494c93c-7ba3-4f6b-b29a-7be4a209fd02.jpeg"
+              alt="Sorridents"
+              className="h-6 object-contain opacity-60"
+            />
           </div>
         </div>
       </footer>
