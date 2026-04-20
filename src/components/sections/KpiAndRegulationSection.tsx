@@ -170,6 +170,25 @@ export default function KpiAndRegulationSection() {
         </div>
       </section>
 
+      {/* Photo banner 2 — between KPI checklist and Funnel */}
+      <div className="relative h-52 md:h-72 overflow-hidden">
+        <img
+          src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/a294e8b6-141b-4b43-b21a-9d20cf911a7e.jpg"
+          alt="Harvard library"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[#1a1a1a]/55" />
+        <div className="relative h-full flex items-center">
+          <div className="max-w-6xl mx-auto px-6 w-full">
+            <p className="text-white/50 text-xs font-table font-bold tracking-[0.16em] uppercase mb-2">Case Study · Sorridents</p>
+            <p className="text-white text-2xl md:text-3xl font-bold leading-snug max-w-xl"
+              style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+              Нельзя масштабировать то, что не стандартизировано
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Funnel */}
       <section className="border-b border-gray-200 bg-white">
         <div className="py-14">

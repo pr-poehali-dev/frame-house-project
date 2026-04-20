@@ -223,6 +223,25 @@ export default function StorySection() {
           </div>
         </div>
       </section>
+
+      {/* Photo banner 1 — between Problem and Methodology */}
+      <div className="relative h-52 md:h-72 overflow-hidden">
+        <img
+          src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/2ebf08bb-75d7-4335-a79f-1ccdb09b5920.jpg"
+          alt="Harvard campus"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[#1a1a1a]/55" />
+        <div className="relative h-full flex items-center">
+          <div className="max-w-6xl mx-auto px-6 w-full">
+            <p className="text-white/50 text-xs font-table font-bold tracking-[0.16em] uppercase mb-2">Harvard Business School</p>
+            <p className="text-white text-2xl md:text-3xl font-bold leading-snug max-w-xl"
+              style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+              Управляй переходами — а не визитами
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
