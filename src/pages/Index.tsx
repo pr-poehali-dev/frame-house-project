@@ -1,9 +1,8 @@
 import Icon from "@/components/ui/icon";
 
-const HERO_IMG = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/f719904a-031f-4ef4-a8bd-2d04dd79de9d.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/2a9240ad-d53c-490e-8464-71dc2f3863df.jpg";
 const CONSULT_IMG = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/files/dac6f41a-04e9-42e3-a26c-301d968147f9.jpg";
 
-// Скриншоты интерфейса телефона
 const PHONE_SCREEN_1 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/0efad4c2-ef98-47d7-a893-c7e68bbd20be.jpeg";
 const PHONE_SCREEN_2 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/cdbf14bb-c3d7-4a8d-90f7-759ab28f3053.jpeg";
 const PHONE_SCREEN_3 = "https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/e50a08cc-ed97-40ea-9b4e-dbb6ba83cc96.jpeg";
@@ -17,13 +16,13 @@ const C = {
   border: "#dbeafe",
 };
 
-// Мокап телефона
+// единое скругление для всего сайта
+const R = 16;
+
 function PhoneMockup({ src, label }: { src: string; label: string }) {
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Корпус телефона */}
       <div
-        className="relative"
         style={{
           width: 220,
           background: "#0f172a",
@@ -32,15 +31,12 @@ function PhoneMockup({ src, label }: { src: string; label: string }) {
           boxShadow: "0 32px 64px rgba(15,23,42,0.35), 0 0 0 1.5px rgba(255,255,255,0.08) inset",
         }}
       >
-        {/* Верхняя полоска / глазок */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}>
           <div style={{ width: 60, height: 6, background: "#1e293b", borderRadius: 10 }} />
         </div>
-        {/* Экран */}
-        <div style={{ borderRadius: 24, overflow: "hidden", background: "#fff" }}>
+        <div style={{ borderRadius: 20, overflow: "hidden", background: "#fff" }}>
           <img src={src} alt={label} style={{ width: "100%", display: "block" }} />
         </div>
-        {/* Нижняя полоска */}
         <div style={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
           <div style={{ width: 50, height: 4, background: "#1e293b", borderRadius: 10 }} />
         </div>
@@ -58,18 +54,17 @@ export default function Index() {
       <section style={{ background: C.bg }} className="pt-12 pb-0">
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-6 items-end">
 
-          {/* Текст */}
           <div className="col-span-12 md:col-span-7 pb-12">
             <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-xs font-semibold uppercase tracking-widest"
-              style={{ background: C.blue, color: C.white }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-xs font-semibold uppercase tracking-widest"
+              style={{ background: C.blue, color: C.white, borderRadius: R }}
             >
               <Icon name="FileText" size={13} />
               Кейс · Future Care 360
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black leading-[1.1] mb-6" style={{ color: C.navy }}>
-              Как мы ускорили конверсию пациентов{" "}
+              Как мы ускорили конверсию пациентов<br />
               <span style={{ color: C.blue }}>в 2 раза</span>
             </h1>
 
@@ -83,12 +78,8 @@ export default function Index() {
                 { icon: "TrendingUp", label: "Вовлечённость", val: "×2 выше" },
                 { icon: "Users", label: "Конверсия", val: "до 60%" },
               ].map((f) => (
-                <div
-                  key={f.label}
-                  className="rounded-3xl p-5"
-                  style={{ background: C.white, border: `1px solid ${C.border}` }}
-                >
-                  <div className="w-10 h-10 rounded-2xl flex items-center justify-center mb-3" style={{ background: C.blue }}>
+                <div key={f.label} className="p-5" style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R }}>
+                  <div className="w-10 h-10 flex items-center justify-center mb-3" style={{ background: C.blue, borderRadius: R }}>
                     <Icon name={f.icon} size={18} className="text-white" />
                   </div>
                   <div className="text-xl font-black mb-0.5" style={{ color: C.navy }}>{f.val}</div>
@@ -98,23 +89,22 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Фото на синем фоне */}
           <div className="col-span-12 md:col-span-5 relative self-end">
             <div
-              className="rounded-t-[2rem] overflow-hidden relative"
-              style={{ background: C.blue, minHeight: 440 }}
+              className="overflow-hidden relative"
+              style={{ background: C.blue, minHeight: 440, borderRadius: `${R * 2}px ${R * 2}px 0 0` }}
             >
               <img
                 src={HERO_IMG}
-                alt="Специалист клиники"
-                className="w-full h-[440px] object-cover object-top"
-                style={{ mixBlendMode: "luminosity", opacity: 0.92 }}
+                alt="Кабинет стоматолога"
+                className="w-full h-[440px] object-cover"
+                style={{ opacity: 0.88 }}
               />
               <div
-                className="absolute bottom-5 left-5 right-5 rounded-3xl p-4 flex items-center gap-3"
-                style={{ background: C.white }}
+                className="absolute bottom-5 left-5 right-5 p-4 flex items-center gap-3"
+                style={{ background: C.white, borderRadius: R }}
               >
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: C.blue }}>
+                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name="Stethoscope" size={20} className="text-white" />
                 </div>
                 <div>
@@ -132,7 +122,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                 <Icon name="AlertCircle" size={18} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Контекст</span>
@@ -145,7 +135,7 @@ export default function Index() {
             </p>
           </div>
           <div className="col-span-12 md:col-span-6 md:col-start-7">
-            <div className="rounded-[2rem] overflow-hidden" style={{ border: `2px solid ${C.border}` }}>
+            <div className="overflow-hidden" style={{ border: `2px solid ${C.border}`, borderRadius: R * 2 }}>
               <img src={CONSULT_IMG} alt="Консультация" className="w-full h-72 object-cover" />
             </div>
           </div>
@@ -157,7 +147,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-start">
           <div className="col-span-12 md:col-span-4">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                 <Icon name="BarChart2" size={18} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Раньше</span>
@@ -171,8 +161,8 @@ export default function Index() {
                 { icon: "Heart", val: "60%", lbl: "конверсия лояльных", color: C.blue },
                 { icon: "Clock", val: "~12 мес.", lbl: "на достижение результата", color: "#f59e0b" },
               ].map((item) => (
-                <div key={item.lbl} className="rounded-3xl p-5 flex items-center gap-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: item.color }}>
+                <div key={item.lbl} className="p-5 flex items-center gap-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: R }}>
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: item.color, borderRadius: R }}>
                     <Icon name={item.icon} size={20} className="text-white" />
                   </div>
                   <div>
@@ -185,9 +175,9 @@ export default function Index() {
           </div>
 
           <div className="col-span-12 md:col-span-7 md:col-start-6">
-            <div className="rounded-[2rem] p-6 md:p-8" style={{ background: C.white }}>
+            <div className="p-6 md:p-8" style={{ background: C.white, borderRadius: R * 2 }}>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name="MessageSquare" size={18} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Пример сообщения</span>
@@ -204,13 +194,12 @@ export default function Index() {
                 <p style={{ color: C.muted }} className="pt-1">С уважением, Future Smile</p>
               </div>
 
-              {/* Превью страницы по ссылке */}
               <a
-                href="https://futuresmile-clinic.ru/pamyatka-gigiena-polosti-rta"
+                href="https://future-it-dent.ru/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block mt-5 rounded-2xl overflow-hidden group"
-                style={{ border: `1.5px solid ${C.border}` }}
+                className="block mt-5 overflow-hidden group"
+                style={{ border: `1.5px solid ${C.border}`, borderRadius: R }}
               >
                 <img
                   src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/03d9ba5b-040d-4134-8644-98a9a8939d2e.png"
@@ -233,21 +222,21 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                 <Icon name="Lightbulb" size={18} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Гипотеза</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-black leading-[1.2] mb-5" style={{ color: C.navy }}>
-              Проблема не в предложении — в формате
+              Проблема не в предложении —<br />в формате
             </h2>
             <p className="text-base leading-relaxed" style={{ color: C.muted }}>
               Если дать пациенту выбор и вовлечь его в диалог — решение принимается быстрее. Не читать сообщение, а реагировать на него.
             </p>
           </div>
           <div className="col-span-12 md:col-span-5 md:col-start-8">
-            <div className="rounded-[2rem] p-8" style={{ background: C.blue }}>
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(255,255,255,0.15)" }}>
+            <div className="p-8" style={{ background: C.blue, borderRadius: R * 2 }}>
+              <div className="w-14 h-14 flex items-center justify-center mb-5" style={{ background: "rgba(255,255,255,0.15)", borderRadius: R }}>
                 <Icon name="MousePointerClick" size={28} className="text-white" />
               </div>
               <p className="text-white font-bold text-lg leading-snug">
@@ -258,14 +247,13 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ══ ЧТО ИЗМЕНИЛИ + МОКАПЫ ТЕЛЕФОНОВ ══ */}
+      {/* ══ ЧТО ИЗМЕНИЛИ ══ */}
       <section style={{ background: C.white }} className="py-20">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          {/* Заголовок */}
           <div className="grid grid-cols-12 gap-8 mb-14 items-end">
             <div className="col-span-12 md:col-span-6">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name="Zap" size={18} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Что изменили</span>
@@ -281,14 +269,12 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Мокапы телефонов */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 mb-14 py-10 px-6" style={{ background: C.bg, borderRadius: 32 }}>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10 mb-14 py-10 px-6" style={{ background: C.bg, borderRadius: R * 2 }}>
             <PhoneMockup src={PHONE_SCREEN_2} label="Вторичные пациенты" />
             <PhoneMockup src={PHONE_SCREEN_1} label="VIP-пациенты" />
             <PhoneMockup src={PHONE_SCREEN_3} label="После удаления зуба" />
           </div>
 
-          {/* Варианты выбора */}
           <div className="grid grid-cols-12 gap-4">
             {[
               { icon: "Sparkles", label: "15–40% на профессиональную гигиену" },
@@ -297,10 +283,10 @@ export default function Index() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="col-span-12 md:col-span-4 flex items-center gap-4 rounded-3xl px-6 py-5"
-                style={{ background: C.bg, border: `1px solid ${C.border}` }}
+                className="col-span-12 md:col-span-4 flex items-center gap-4 px-6 py-5"
+                style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: R }}
               >
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: C.blue }}>
+                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name={item.icon} size={20} className="text-white" />
                 </div>
                 <span className="text-sm font-semibold" style={{ color: C.navy }}>{item.label}</span>
@@ -316,7 +302,7 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-6 mb-12">
             <div className="col-span-12 md:col-span-5">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name="TrendingUp" size={18} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Результат</span>
@@ -333,7 +319,7 @@ export default function Index() {
           </div>
 
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 md:col-span-6 rounded-[2rem] p-8" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+            <div className="col-span-12 md:col-span-6 p-8" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: R * 2 }}>
               <div className="flex items-center gap-3 mb-6">
                 <Icon name="Minus" size={16} style={{ color: "rgba(255,255,255,0.4)" }} />
                 <span className="text-xs uppercase tracking-widest font-bold" style={{ color: "rgba(255,255,255,0.4)" }}>До внедрения</span>
@@ -342,7 +328,7 @@ export default function Index() {
               <div className="text-base mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>для достижения конверсии 40% / 60%</div>
               <div className="grid grid-cols-2 gap-3">
                 {[["40%", "вторичные"], ["60%", "лояльные"]].map(([val, lbl]) => (
-                  <div key={lbl} className="rounded-2xl p-4 text-center" style={{ background: "rgba(255,255,255,0.06)" }}>
+                  <div key={lbl} className="p-4 text-center" style={{ background: "rgba(255,255,255,0.06)", borderRadius: R }}>
                     <div className="text-2xl font-black text-white">{val}</div>
                     <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{lbl}</div>
                   </div>
@@ -350,7 +336,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="col-span-12 md:col-span-6 rounded-[2rem] p-8" style={{ background: C.blue }}>
+            <div className="col-span-12 md:col-span-6 p-8" style={{ background: C.blue, borderRadius: R * 2 }}>
               <div className="flex items-center gap-3 mb-6">
                 <Icon name="CheckCircle" size={16} className="text-white opacity-70" />
                 <span className="text-xs uppercase tracking-widest font-bold text-white opacity-70">После внедрения</span>
@@ -359,7 +345,7 @@ export default function Index() {
               <div className="text-base mb-8 text-white opacity-80">та же конверсия за половину срока</div>
               <div className="grid grid-cols-3 gap-3">
                 {[["×2", "вовлечённость"], ["↑", "скорость записи"], ["↓", "путь до записи"]].map(([val, lbl]) => (
-                  <div key={lbl} className="rounded-2xl p-3 text-center" style={{ background: "rgba(255,255,255,0.15)" }}>
+                  <div key={lbl} className="p-3 text-center" style={{ background: "rgba(255,255,255,0.15)", borderRadius: R }}>
                     <div className="text-xl font-black text-white">{val}</div>
                     <div className="text-xs mt-1 text-white opacity-70">{lbl}</div>
                   </div>
@@ -376,7 +362,7 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-6 mb-12">
             <div className="col-span-12 md:col-span-5">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name="Star" size={18} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Механика</span>
@@ -392,11 +378,11 @@ export default function Index() {
             ].map((item) => (
               <div
                 key={item.n}
-                className="col-span-12 md:col-span-4 rounded-[2rem] p-7"
-                style={{ background: C.white, border: `1px solid ${C.border}` }}
+                className="col-span-12 md:col-span-4 p-7"
+                style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R * 2 }}
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: C.navy }}>
+                  <div className="w-12 h-12 flex items-center justify-center" style={{ background: C.navy, borderRadius: R }}>
                     <Icon name={item.icon} size={20} className="text-white" />
                   </div>
                   <span className="text-xs font-bold tracking-widest" style={{ color: C.muted }}>{item.n}</span>
@@ -414,7 +400,7 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: C.blue }}>
+              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
                 <Icon name="Flag" size={18} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Вывод</span>
@@ -437,7 +423,7 @@ export default function Index() {
                 className="flex items-center gap-4 py-5"
                 style={{ borderBottom: i < 2 ? `1px solid ${C.border}` : "none" }}
               >
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: C.blue }}>
+                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
                   <Icon name={item.icon} size={20} className="text-white" />
                 </div>
                 <span className="text-base font-semibold" style={{ color: C.navy }}>{item.text}</span>
@@ -452,13 +438,13 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-4 items-center">
           <span className="col-span-6 text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>© Future Care 360</span>
           <a
-            href="https://futuresmile-clinic.ru/pamyatka-gigiena-polosti-rta"
+            href="https://future-it-dent.ru/"
             target="_blank"
             rel="noopener noreferrer"
             className="col-span-6 text-right text-sm hover:text-white transition-colors"
             style={{ color: C.blue }}
           >
-            futuresmile-clinic.ru
+            future-it-dent.ru
           </a>
         </div>
       </footer>
