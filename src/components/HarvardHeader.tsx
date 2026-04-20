@@ -26,7 +26,7 @@ export default function HarvardHeader() {
             Harvard Business School
           </span>
           <a
-            href="https://disk.yandex.ru/i/2VkrVRZz7CpJRg"
+            href="https://future-it-dent.ru/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 text-xs font-table text-white/80 hover:text-white transition-colors"
