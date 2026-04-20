@@ -19,8 +19,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Golos Text', 'sans-serif'],
-				heading: ['Golos Text', 'sans-serif'],
+				sans: ['EB Garamond', 'Georgia', 'serif'],
+				heading: ['EB Garamond', 'Georgia', 'serif'],
+				serif: ['EB Garamond', 'Georgia', 'serif'],
+				table: ['Merriweather', 'Georgia', 'serif'],
 				mono: ['IBM Plex Mono', 'monospace'],
 			},
 			colors: {
