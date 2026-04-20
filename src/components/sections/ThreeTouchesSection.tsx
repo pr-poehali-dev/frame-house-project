@@ -50,19 +50,21 @@ const touches = [
 
 export default function ThreeTouchesSection() {
   return (
-    <section className="border-b border-border bg-white">
-      <div className="max-w-5xl mx-auto px-6 py-16">
+    <section id="three-touches" className="border-b border-gray-200 bg-white">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        {/* Header */}
         <div className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-6 h-[2px] bg-primary" />
-            <p className="text-xs font-table font-bold tracking-[0.12em] uppercase text-primary">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-[2px] bg-[#A41034]" />
+            <p className="text-xs font-table font-bold tracking-[0.14em] uppercase text-[#A41034]">
               Методология
             </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[#1b1b1b]"
+            style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
             Правило трёх касаний
           </h2>
-          <p className="text-base text-muted-foreground max-w-xl leading-relaxed">
+          <p className="text-base text-gray-500 max-w-xl leading-relaxed font-table">
             Пациент редко принимает решение с первого раза. Клиника обязана сделать 3 касания — каждое завершается следующим шагом в CRM.
           </p>
         </div>
@@ -71,41 +73,39 @@ export default function ThreeTouchesSection() {
           {touches.map((t) => (
             <div
               key={t.num}
-              className={`rounded-2xl border p-6 md:p-8 ${
+              className={`rounded-xl border p-6 md:p-8 ${
                 t.accent
-                  ? 'border-primary/30 bg-red-50/40'
-                  : 'border-border bg-[#fafaf9]'
+                  ? 'border-[#A41034]/25 bg-red-50/30'
+                  : 'border-gray-200 bg-gray-50'
               }`}
             >
               <div className="flex flex-col md:flex-row md:gap-8">
                 {/* Left: number + title */}
                 <div className="md:w-64 flex-shrink-0 mb-6 md:mb-0">
                   <div
-                    className={`text-7xl font-bold leading-none mb-3 ${
-                      t.accent ? 'text-primary opacity-15' : 'text-foreground opacity-10'
-                    }`}
+                    className="text-7xl font-bold leading-none mb-3 text-[#A41034] opacity-15"
                     style={{ fontFamily: '"EB Garamond", Georgia, serif' }}
                   >
                     {t.num}
                   </div>
-                  <h3 className="text-base font-bold leading-snug mb-2">{t.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">Цель:</span> {t.goal}
+                  <h3 className="text-base font-bold leading-snug mb-2 text-[#1b1b1b]">{t.title}</h3>
+                  <p className="text-sm text-gray-500 font-table">
+                    <span className="font-semibold text-[#1b1b1b]">Цель:</span> {t.goal}
                   </p>
                 </div>
 
                 {/* Center: actions */}
                 <div className="flex-1 mb-6 md:mb-0">
-                  <p className="text-xs font-table font-bold uppercase tracking-widest text-muted-foreground mb-3">
+                  <p className="text-xs font-table font-bold uppercase tracking-widest text-gray-400 mb-3">
                     Что делаем
                   </p>
                   <ul className="space-y-2.5">
                     {t.actions.map((a, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-base">
+                      <li key={i} className="flex items-start gap-2.5 text-base text-gray-700">
                         <Icon
                           name="Check"
                           size={15}
-                          className={`mt-0.5 flex-shrink-0 ${t.accent ? 'text-primary' : 'text-muted-foreground'}`}
+                          className={`mt-0.5 flex-shrink-0 ${t.accent ? 'text-[#A41034]' : 'text-gray-400'}`}
                         />
                         <span>{a}</span>
                       </li>
@@ -115,19 +115,19 @@ export default function ThreeTouchesSection() {
 
                 {/* Right: KPI */}
                 <div className="md:w-56 flex-shrink-0">
-                  <p className="text-xs font-table font-bold uppercase tracking-widest text-muted-foreground mb-3">
+                  <p className="text-xs font-table font-bold uppercase tracking-widest text-gray-400 mb-3">
                     KPI касания
                   </p>
                   <div className="space-y-4">
                     {t.kpi.map((k, i) => (
                       <div key={i} className="flex flex-col gap-0.5">
                         <span
-                          className={`text-2xl font-bold tabular-nums leading-none ${t.accent ? 'text-primary' : 'text-foreground'}`}
-                          style={{ fontFamily: '"Merriweather", Georgia, serif' }}
+                          className={`text-2xl font-bold tabular-nums leading-none ${t.accent ? 'text-[#A41034]' : 'text-[#1b1b1b]'}`}
+                          style={{ fontFamily: '"EB Garamond", Georgia, serif' }}
                         >
                           {k.value}
                         </span>
-                        <span className="text-xs font-table text-muted-foreground leading-snug mt-1">{k.label}</span>
+                        <span className="text-xs font-table text-gray-500 leading-snug mt-1">{k.label}</span>
                       </div>
                     ))}
                   </div>
