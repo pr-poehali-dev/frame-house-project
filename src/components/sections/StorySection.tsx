@@ -22,27 +22,29 @@ export default function StorySection() {
         />
         <div className="absolute inset-0 bg-black/30" />
 
-        {/* Text block bottom-left — Harvard Symposium style */}
-        <div className="absolute bottom-0 left-0 right-0 md:right-auto md:max-w-[55%]">
-          <div className="bg-[#1a1a1a]/95 px-8 pt-8 pb-10 md:px-12 md:pt-10 md:pb-14">
-            <div className="w-10 h-[2px] bg-[#A41034] mb-4" />
-            <p className="text-white/60 text-sm font-table mb-2">Harvard Business School · Case Study</p>
-            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4"
-              style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
-              Три касания, которые изменили стоматологию
-            </h1>
-            <p className="text-white/75 text-base leading-relaxed mb-6 max-w-lg">
-              Как правило управления конверсией из Harvard стало основой аналитики сети Sorridents и изменило экономику клиник.
-            </p>
-            <button
-              onClick={() => document.querySelector('#three-touches')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center gap-3 text-white text-sm font-table font-semibold"
-            >
-              <span className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center">
-                <Icon name="ArrowRight" size={16} />
-              </span>
-              Читать методологию
-            </button>
+        {/* Text block bottom-left — aligned to site grid */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="md:max-w-[55%] bg-[#1a1a1a]/95 px-8 pt-8 pb-10 md:px-12 md:pt-10 md:pb-14">
+              <div className="w-10 h-[2px] bg-[#A41034] mb-4" />
+              <p className="text-white/60 text-sm font-table mb-2">Harvard Business School · Case Study</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4"
+                style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+                Три касания, которые изменили стоматологию
+              </h1>
+              <p className="text-white/75 text-base leading-relaxed mb-6 max-w-lg">
+                Как правило управления конверсией из Harvard стало основой аналитики сети Sorridents и изменило экономику клиник.
+              </p>
+              <button
+                onClick={() => document.querySelector('#three-touches')?.scrollIntoView({ behavior: 'smooth' })}
+                className="inline-flex items-center gap-3 text-white text-sm font-table font-semibold"
+              >
+                <span className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center">
+                  <Icon name="ArrowRight" size={16} />
+                </span>
+                Читать методологию
+              </button>
+            </div>
           </div>
         </div>
       </section>
