@@ -17,7 +17,11 @@ const C = {
 };
 
 // единое скругление для всего сайта
-const R = 16;
+const R = 10;
+// единый размер плашки под иконку
+const IC = 40;
+// единый размер иконки
+const IS = 18;
 
 function PhoneMockup({ src, label }: { src: string; label: string }) {
   return (
@@ -79,8 +83,8 @@ export default function Index() {
                 { icon: "Users", label: "Конверсия", val: "до 60%" },
               ].map((f) => (
                 <div key={f.label} className="p-5" style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R }}>
-                  <div className="w-10 h-10 flex items-center justify-center mb-3" style={{ background: C.blue, borderRadius: R }}>
-                    <Icon name={f.icon} size={18} className="text-white" />
+                  <div className="flex items-center justify-center mb-3" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                    <Icon name={f.icon} size={IS} className="text-white" />
                   </div>
                   <div className="text-xl font-black mb-0.5" style={{ color: C.navy }}>{f.val}</div>
                   <div className="text-xs" style={{ color: C.muted }}>{f.label}</div>
@@ -104,8 +108,8 @@ export default function Index() {
                 className="absolute bottom-5 left-5 right-5 p-4 flex items-center gap-3"
                 style={{ background: C.white, borderRadius: R }}
               >
-                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name="Stethoscope" size={20} className="text-white" />
+                <div className="flex items-center justify-center shrink-0" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name="Stethoscope" size={IS} className="text-white" />
                 </div>
                 <div>
                   <div className="text-sm font-bold" style={{ color: C.navy }}>Future Care 360</div>
@@ -122,8 +126,8 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                <Icon name="AlertCircle" size={18} className="text-white" />
+              <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                <Icon name="AlertCircle" size={IS} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Контекст</span>
             </div>
@@ -147,8 +151,8 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-start">
           <div className="col-span-12 md:col-span-4">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                <Icon name="BarChart2" size={18} className="text-white" />
+              <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                <Icon name="BarChart2" size={IS} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Раньше</span>
             </div>
@@ -162,8 +166,8 @@ export default function Index() {
                 { icon: "Clock", val: "~12 мес.", lbl: "на достижение результата", color: "#f59e0b" },
               ].map((item) => (
                 <div key={item.lbl} className="p-5 flex items-center gap-4" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: R }}>
-                  <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: item.color, borderRadius: R }}>
-                    <Icon name={item.icon} size={20} className="text-white" />
+                  <div className="flex items-center justify-center shrink-0" style={{ width: IC, height: IC, background: item.color, borderRadius: R }}>
+                    <Icon name={item.icon} size={IS} className="text-white" />
                   </div>
                   <div>
                     <div className="text-2xl font-black text-white">{item.val}</div>
@@ -177,8 +181,8 @@ export default function Index() {
           <div className="col-span-12 md:col-span-7 md:col-start-6">
             <div className="p-6 md:p-8" style={{ background: C.white, borderRadius: R * 2 }}>
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name="MessageSquare" size={18} className="text-white" />
+                <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name="MessageSquare" size={IS} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Пример сообщения</span>
               </div>
@@ -222,8 +226,8 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                <Icon name="Lightbulb" size={18} className="text-white" />
+              <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                <Icon name="Lightbulb" size={IS} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Гипотеза</span>
             </div>
@@ -236,8 +240,8 @@ export default function Index() {
           </div>
           <div className="col-span-12 md:col-span-5 md:col-start-8">
             <div className="p-8" style={{ background: C.blue, borderRadius: R * 2 }}>
-              <div className="w-14 h-14 flex items-center justify-center mb-5" style={{ background: "rgba(255,255,255,0.15)", borderRadius: R }}>
-                <Icon name="MousePointerClick" size={28} className="text-white" />
+              <div className="flex items-center justify-center mb-5" style={{ width: IC, height: IC, background: "rgba(255,255,255,0.15)", borderRadius: R }}>
+                <Icon name="MousePointerClick" size={IS} className="text-white" />
               </div>
               <p className="text-white font-bold text-lg leading-snug">
                 Дай пациенту выбор — и он запишется быстрее
@@ -253,8 +257,8 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-8 mb-14 items-end">
             <div className="col-span-12 md:col-span-6">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name="Zap" size={18} className="text-white" />
+                <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name="Zap" size={IS} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Что изменили</span>
               </div>
@@ -286,8 +290,8 @@ export default function Index() {
                 className="col-span-12 md:col-span-4 flex items-center gap-4 px-6 py-5"
                 style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: R }}
               >
-                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name={item.icon} size={20} className="text-white" />
+                <div className="flex items-center justify-center shrink-0" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name={item.icon} size={IS} className="text-white" />
                 </div>
                 <span className="text-sm font-semibold" style={{ color: C.navy }}>{item.label}</span>
               </div>
@@ -302,8 +306,8 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-6 mb-12">
             <div className="col-span-12 md:col-span-5">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name="TrendingUp" size={18} className="text-white" />
+                <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name="TrendingUp" size={IS} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Результат</span>
               </div>
@@ -362,8 +366,8 @@ export default function Index() {
           <div className="grid grid-cols-12 gap-6 mb-12">
             <div className="col-span-12 md:col-span-5">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name="Star" size={18} className="text-white" />
+                <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name="Star" size={IS} className="text-white" />
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Механика</span>
               </div>
@@ -382,8 +386,8 @@ export default function Index() {
                 style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R * 2 }}
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 flex items-center justify-center" style={{ background: C.navy, borderRadius: R }}>
-                    <Icon name={item.icon} size={20} className="text-white" />
+                  <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.navy, borderRadius: R }}>
+                    <Icon name={item.icon} size={IS} className="text-white" />
                   </div>
                   <span className="text-xs font-bold tracking-widest" style={{ color: C.muted }}>{item.n}</span>
                 </div>
@@ -400,8 +404,8 @@ export default function Index() {
         <div className="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-12 gap-8 items-center">
           <div className="col-span-12 md:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 flex items-center justify-center" style={{ background: C.blue, borderRadius: R }}>
-                <Icon name="Flag" size={18} className="text-white" />
+              <div className="flex items-center justify-center" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                <Icon name="Flag" size={IS} className="text-white" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest" style={{ color: C.blue }}>Вывод</span>
             </div>
@@ -423,8 +427,8 @@ export default function Index() {
                 className="flex items-center gap-4 py-5"
                 style={{ borderBottom: i < 2 ? `1px solid ${C.border}` : "none" }}
               >
-                <div className="w-12 h-12 flex items-center justify-center shrink-0" style={{ background: C.blue, borderRadius: R }}>
-                  <Icon name={item.icon} size={20} className="text-white" />
+                <div className="flex items-center justify-center shrink-0" style={{ width: IC, height: IC, background: C.blue, borderRadius: R }}>
+                  <Icon name={item.icon} size={IS} className="text-white" />
                 </div>
                 <span className="text-base font-semibold" style={{ color: C.navy }}>{item.text}</span>
               </div>
