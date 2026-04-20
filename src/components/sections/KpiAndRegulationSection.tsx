@@ -172,45 +172,69 @@ export default function KpiAndRegulationSection() {
 
       {/* Funnel */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-14">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-8 h-[2px] bg-[#A41034]" />
-            <p className="text-xs font-table font-bold tracking-[0.14em] uppercase text-[#A41034]">
-              Путь пациента
-            </p>
+        <div className="py-14">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-8 h-[2px] bg-[#A41034]" />
+              <p className="text-xs font-table font-bold tracking-[0.14em] uppercase text-[#A41034]">
+                Путь пациента
+              </p>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-8 text-[#1b1b1b]"
+              style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+              Воронка: от обращения до рекомендаций
+            </h3>
           </div>
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-[#1b1b1b]"
-            style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
-            Воронка: от обращения до рекомендаций
-          </h3>
 
-          <div className="flex flex-col md:flex-row items-stretch gap-0 overflow-x-auto">
+          <div className="hidden md:flex items-stretch w-full">
             {funnel.map((step, i) => {
               const widths = [100, 90, 85, 80, 72, 65, 60, 56, 50];
               const w = widths[i] ?? 50;
               return (
-                <div key={i} className="flex flex-col items-center min-w-[90px]">
+                <div key={i} className="flex flex-col items-center flex-1">
                   <div
-                    className="w-full flex items-center justify-center text-center px-2 py-3 text-xs font-table font-semibold text-white relative"
+                    className="w-full flex items-center justify-center text-center px-2 py-4 text-sm font-table font-semibold text-white"
                     style={{
                       background: i === 0 ? '#A41034' : `rgba(164,16,52,${0.85 - i * 0.08})`,
-                      minHeight: '56px',
+                      minHeight: '64px',
                       clipPath: i < funnel.length - 1
-                        ? 'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%)'
+                        ? 'polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%)'
                         : 'none',
                       zIndex: funnel.length - i,
                     }}
                   >
-                    <span className="text-center leading-tight">{step}</span>
+                    <span className="leading-tight">{step}</span>
                   </div>
-                  <div className="text-xs font-table text-gray-400 mt-1.5">{w}%</div>
+                  <div className="text-xs font-table text-gray-400 mt-2">{w}%</div>
                 </div>
               );
             })}
           </div>
-          <p className="text-xs font-table text-gray-400 mt-4">
-            * Примерные показатели конверсии на каждом этапе воронки
-          </p>
+
+          {/* Mobile */}
+          <div className="flex md:hidden flex-col gap-2 px-6">
+            {funnel.map((step, i) => {
+              const widths = [100, 90, 85, 80, 72, 65, 60, 56, 50];
+              const w = widths[i] ?? 50;
+              return (
+                <div key={i} className="flex items-center gap-3">
+                  <div
+                    className="flex items-center justify-center px-4 py-2.5 text-sm font-table font-semibold text-white rounded"
+                    style={{ background: i === 0 ? '#A41034' : `rgba(164,16,52,${0.85 - i * 0.08})`, minWidth: '140px' }}
+                  >
+                    {step}
+                  </div>
+                  <span className="text-xs font-table text-gray-400">{w}%</span>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="max-w-6xl mx-auto px-6">
+            <p className="text-xs font-table text-gray-400 mt-4">
+              * Примерные показатели конверсии на каждом этапе воронки
+            </p>
+          </div>
         </div>
       </section>
 
