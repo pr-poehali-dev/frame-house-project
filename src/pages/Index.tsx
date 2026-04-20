@@ -203,6 +203,26 @@ export default function Index() {
                 </div>
                 <p style={{ color: C.muted }} className="pt-1">С уважением, Future Smile</p>
               </div>
+
+              {/* Превью страницы по ссылке */}
+              <a
+                href="https://futuresmile-clinic.ru/pamyatka-gigiena-polosti-rta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-5 rounded-2xl overflow-hidden group"
+                style={{ border: `1.5px solid ${C.border}` }}
+              >
+                <img
+                  src="https://cdn.poehali.dev/projects/6dd7777c-1daf-4503-ac81-75976b26d4ef/bucket/03d9ba5b-040d-4134-8644-98a9a8939d2e.png"
+                  alt="Страница futuresmile-clinic.ru"
+                  className="w-full object-cover object-top group-hover:opacity-90 transition-opacity"
+                  style={{ maxHeight: 200 }}
+                />
+                <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: C.bg }}>
+                  <Icon name="ExternalLink" size={13} style={{ color: C.blue }} />
+                  <span className="text-xs font-semibold" style={{ color: C.blue }}>futuresmile-clinic.ru — Важность профгигиены</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
