@@ -48,7 +48,7 @@ export default function ConclusionSection() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4 mb-12">
             {conclusions.map((c, i) => (
               <div key={i} className={`border rounded-xl p-5 flex items-start gap-4 ${
                 i === 0 ? 'bg-[#A41034] border-[#A41034]' : 'bg-white border-gray-200'
@@ -64,6 +64,65 @@ export default function ConclusionSection() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Video CTA block */}
+          <div className="border border-[#A41034]/25 rounded-xl bg-white overflow-hidden">
+            <div className="flex flex-col md:flex-row">
+              <div className="p-8 md:p-10 flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-[2px] bg-[#A41034]" />
+                  <p className="text-xs font-table font-bold tracking-[0.14em] uppercase text-[#A41034]">
+                    Демонстрация
+                  </p>
+                </div>
+                <p className="text-xl md:text-2xl font-bold text-[#1b1b1b] mb-2 leading-snug"
+                  style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+                  Обычные отчёты показывают цифры.
+                </p>
+                <p className="text-xl md:text-2xl font-bold text-[#A41034] mb-6 leading-snug"
+                  style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+                  Эта аналитика показывает, где клиника недозарабатывает.
+                </p>
+                <ul className="space-y-2 mb-8">
+                  {[
+                    'путь пациента по этапам',
+                    'точки потери выручки',
+                    'возврат повторных и лояльных пациентов',
+                    'реальную эффективность команды',
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm font-table text-gray-600">
+                      <Icon name="ChevronRight" size={14} className="text-[#A41034] mt-0.5 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="https://rutube.ru/video/53119d4f2a813f72aca41d60cf47f834/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-[#A41034] text-white text-sm font-table font-semibold px-6 py-3 rounded hover:bg-[#8a0c2a] transition-colors"
+                >
+                  <Icon name="Play" size={15} />
+                  Смотреть видео
+                </a>
+              </div>
+              <div className="md:w-72 bg-[#1a1a1a] flex items-center justify-center p-8 md:p-0">
+                <a
+                  href="https://rutube.ru/video/53119d4f2a813f72aca41d60cf47f834/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-3 group"
+                >
+                  <div className="w-16 h-16 rounded-full bg-[#A41034] flex items-center justify-center group-hover:bg-[#8a0c2a] transition-colors">
+                    <Icon name="Play" size={28} className="text-white ml-1" />
+                  </div>
+                  <span className="text-white/60 text-xs font-table group-hover:text-white/90 transition-colors">
+                    Открыть на Rutube
+                  </span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
