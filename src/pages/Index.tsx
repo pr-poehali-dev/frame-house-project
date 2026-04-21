@@ -22,27 +22,28 @@ const IS = 18;
 
 function PhoneMockup({ src, label }: { src: string; label: string }) {
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
       <div
         style={{
-          width: 160,
+          width: "100%",
+          maxWidth: 180,
           background: "#0f172a",
-          borderRadius: 28,
-          padding: "8px 6px",
-          boxShadow: "0 24px 48px rgba(15,23,42,0.35), 0 0 0 1.5px rgba(255,255,255,0.08) inset",
+          borderRadius: 24,
+          padding: "7px 5px",
+          boxShadow: "0 16px 40px rgba(15,23,42,0.35), 0 0 0 1.5px rgba(255,255,255,0.08) inset",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 5 }}>
-          <div style={{ width: 44, height: 5, background: "#1e293b", borderRadius: 10 }} />
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 4 }}>
+          <div style={{ width: 36, height: 4, background: "#1e293b", borderRadius: 10 }} />
         </div>
-        <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff" }}>
+        <div style={{ borderRadius: 14, overflow: "hidden", background: "#fff" }}>
           <img src={src} alt={label} style={{ width: "100%", display: "block" }} />
         </div>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 6 }}>
-          <div style={{ width: 36, height: 3, background: "#1e293b", borderRadius: 10 }} />
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 5 }}>
+          <div style={{ width: 28, height: 3, background: "#1e293b", borderRadius: 10 }} />
         </div>
       </div>
-      <span className="text-xs font-semibold uppercase tracking-widest text-center" style={{ color: C.muted }}>{label}</span>
+      <span className="text-xs font-semibold uppercase tracking-widest text-center leading-tight" style={{ color: C.muted }}>{label}</span>
     </div>
   );
 }
@@ -85,18 +86,20 @@ export default function Index() {
                 С помощью интерактивных триггеров в Future Care 360 тот же результат достигается за вдвое меньший срок — без скидочных войн и ручной работы.
               </p>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="flex flex-col gap-3">
                 {[
                   { icon: "Clock", label: "Срок сокращён", val: "в 2 раза" },
                   { icon: "TrendingUp", label: "Вовлечённость", val: "×2 выше" },
                   { icon: "Users", label: "Конверсия", val: "до 60%" },
                 ].map((f) => (
-                  <div key={f.label} className="p-3 md:p-5" style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R }}>
-                    <div className="flex items-center justify-center mb-2 md:mb-3" style={{ width: 36, height: 36, background: C.blue, borderRadius: R }}>
+                  <div key={f.label} className="flex items-center gap-4 px-4 py-3" style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: R }}>
+                    <div className="flex items-center justify-center shrink-0" style={{ width: 36, height: 36, background: C.blue, borderRadius: R }}>
                       <Icon name={f.icon} size={16} className="text-white" />
                     </div>
-                    <div className="text-base md:text-xl font-black mb-0.5 leading-tight" style={{ color: C.navy }}>{f.val}</div>
-                    <div className="text-xs leading-tight" style={{ color: C.muted }}>{f.label}</div>
+                    <div>
+                      <div className="text-lg font-black leading-tight" style={{ color: C.navy }}>{f.val}</div>
+                      <div className="text-xs leading-tight" style={{ color: C.muted }}>{f.label}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -168,7 +171,7 @@ export default function Index() {
               <h2 className="text-2xl md:text-3xl font-black leading-[1.2] mb-6 text-white">
                 Стандартное сообщение
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-3">
+              <div className="flex flex-col gap-3">
                 {[
                   { icon: "Users", val: "40%", lbl: "конверсия вторичных", color: C.blue },
                   { icon: "Heart", val: "60%", lbl: "конверсия лояльных", color: C.blue },
@@ -276,7 +279,7 @@ export default function Index() {
           </div>
 
           <div
-            className="flex flex-row items-center justify-center gap-4 md:gap-10 mb-10 py-8 px-4 overflow-x-auto"
+            className="flex flex-row items-center justify-center gap-3 md:gap-10 mb-10 py-8 px-4"
             style={{ background: C.bg, borderRadius: R * 2 }}
           >
             <PhoneMockup src={PHONE_SCREEN_2} label="Вторичные" />
